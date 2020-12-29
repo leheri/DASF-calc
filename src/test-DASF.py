@@ -12,44 +12,29 @@ import numpy as np
 from scipy.signal import find_peaks
 
 
-# Plots the absorption spectrum 
-# Defines the data for x and y axis
 def calc_dasf(m) : 
     spectrum = pd.read_csv(m, sep = "\t", thousands=',')
     
-    
-    def remove_outliner(df, col_index, threshold) :
-        return df[df.iloc[:,col_index] < (threshold*df.iloc[:,col_index].median())]
-    
-    def remove_outliners_x(df) :
-        
-        return 
-    
+    # Defines the data for x and y axis
     wavelength = spectrum.iloc[:,0]
-    #absorption = spectrum.iloc[:,1]
-    threshold =  10
-    
-    absorption = remove_outliner(spectrum, 1, threshold)
-    
-    print(absorption)
-    print(wavelength)
+    absorption = spectrum.iloc[:,1]
     
     # Customization of the absorption plot appearance
     plt.xlabel("wavelength [nm]")
     plt.ylabel("A")
     plt.grid(True, alpha = 0.9, linestyle="dotted")
 
-    # Saves the absorption plot
-    xrange = spectrum.iloc[:,0]
-    yrange = spectrum.iloc[:,1]
+    # Plots and saves the absorption plot
+    xrange = wavelength
+    yrange = absorption
     plt.plot(xrange, yrange)
-    plt.savefig(str(file)+"absorption.png", bbox_inches='tight', dpi=300)
+    plt.savefig(os.path.join("results", str(file)+"_absorption.png"), bbox_inches='tight', dpi=300)
     plt.clf()
     
     # Calculates 1/lambda and stores it in a column named "1/lambda"
     spectrum["1/lambda"] = 1/wavelength
     
-    # Calculate ln(alpha/lambda) and store it in column "ln(alpha/lambda)"
+    # Calculates ln(alpha/lambda) and stores it in column "ln(alpha/lambda)"
     division = absorption / wavelength
     spectrum["ln(alpha/lambda)"] = np.log2(division)
     
@@ -66,7 +51,7 @@ def calc_dasf(m) :
     # Plots the energy against derivative
     plt.plot(spectrum.loc[:,"energy [eV]"], spectrum.loc[:,"diff"])
     
-    # Draws a line in the plot for maxima (band-gaps) and stores them in Data Frame
+    # Draws a line in the plot for maxima (Eg) and stores them in Data Frame
     bg_list = []
     files_list = []    
     
@@ -88,30 +73,36 @@ def calc_dasf(m) :
     df_bg = pd.DataFrame(list(zip(files_list , bg_list)), 
                          columns = ['files', 'band-gaps'])     
        
-    #Plots the DASF graph
+    # Plots the DASF graph
     plt.xlabel("energy [eV]") 
     plt.yticks([])
     plt.tick_params(axis = "y", length = 0)
     
-    #Saves graphs and files
-    spectrum.to_csv(str(file)+"_calc.out")
-    plt.savefig(str(file)+"DASF.png", bbox_inches='tight', dpi=300)
+    # Saves graphs and files
+    spectrum.to_csv(os.path.join("results",str(file)+"_calc.csv"), sep = "\t")
+    plt.savefig(os.path.join("results", str(file)+"_DASF.png"), bbox_inches='tight', dpi=300)
     plt.clf()
     
-    #returns Data Frame with maxima of this file
+    # returns Data Frame with band-gaps of this data file
     return df_bg
+
 
 df_bg_all = pd.DataFrame(columns =['files', 'band-gaps']) 
 
-#executes above defined function for all txt and csv files in the folder
+# Generates directory "results" if it does not exist
+if not os.path.exists("results") :
+    os.mkdir("results")
+
+# Executes above defined function for all .txt and .csv files in the folder
 files = os.listdir(".")
 for file in files : 
     if not (file.endswith(".txt") or file.endswith(".csv")) :
         continue
     df_bg_local = calc_dasf(file)
     df_bg_all = df_bg_all.append(df_bg_local, ignore_index = True)
-    
-df_bg_all.to_csv("band-gaps.out")
+
+# Saves the band-gaps of each data file in a file    
+df_bg_all.to_csv(os.path.join("results","band-gaps.csv"), sep = "\t")
    
     
 
