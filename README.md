@@ -4,15 +4,15 @@ This script calculates the band-gap of a material from its absorption spectrum d
 
 ## How does the script work?
 
-Generates the absorption spectrum for all `.csv` and `.txt` files (data-files) within the directory. Additionaly, the data is processed according to the DASF method and plotted. Furthermore, a `.csv`-file of the calculations is generated as well as a file that contains the band-gap for all data files within the directory.
+Generates the absorption spectrum for all `.csv` and `.txt` files (data-files) within the directory. Additionaly, the data is processed according to the DASF method and plotted. Furthermore, a `.csv` -file of the calculations is generated as well as a file that contains the band-gap for all data files within the directory.
 
 ## Prerequisites to execute the script
 
-The file `test-DASF.py` should be in the directory of the files to be used on. You should have Python installed as well as the packages pandas, matplotlib and os. If you do not work with code frequently, you have the option to additionaly download the `DASF.batch file` into the same directory. You can then execute the code by simply clicking on the `DASF.batch` file. The execution will then take place in your terminal (You still need to have installed python and the packages).
+The file `test-DASF.py` should be in the directory of the files to be used on. You should have Python installed as well as the packages pandas, matplotlib, scipy and os. If you do not work with code frequently, you have the option to additionaly download the `DASF.batch` -file into the same directory. You can then execute the code by simply clicking on the `DASF.batch` file. The execution will then take place in your terminal (You still need to have installed python and the packages).
 
 ## Prerequisites for the data
 
-You can name the files with the spectra as you like. They should be a `.csv` or a `.txt` file. In the first column should be the wavlength and in the second the absorption seperated by a tabulator. The first row should contain the header (column names can be chosen by you). This format is depicted here:
+You can name the data files as you like. They should be in `.csv` or a `.txt` format. In the first column should be the wavlength and in the second the absorption seperated by a tabulator. The first row should contain the header (column names can be chosen by you). This format is depicted here:
 
 ```python
 "wavelength" "absorption"
@@ -32,11 +32,11 @@ The script will generate a new directory `\results` (if it does not exist alread
 ## How to run the script - step by step
 
 1. Check if you have python installed and install it if not. A beginners guide can be found [here](https://wiki.python.org/moin/BeginnersGuide/Download)
-1. Create a directory and copy all data that you want to have analyzed in that folder. The files shoulb be `.csv` or `.txt`
-1. Download `test-DASF.py` and `DASF.batch` and save it in the same directoy
+1. Create a directory and copy all data that you want to have analyzed in that folder. The files should be `.csv` or `.txt`
+1. Download `test-DASF.py` and `DASF.batch` from `\src` in this repository and save it in the same directoy
 1. Run the script by either
-  1. clicking on `DASF.batch` - the script will be executed in the terminal or
-  1. by running `test-DASF.py` in an IDE or the terminal
+  	1. clicking on `DASF.batch` - the script will be executed in the terminal or
+  	1. by running `test-DASF.py` in an IDE or the terminal
 1. Obtain the outcome files in the `results` folder
 
 ## Reference
