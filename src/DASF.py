@@ -46,7 +46,7 @@ def calc_dasf(m) :
     spectrum["energy [eV]"] = 1240.0 / wavelength
     
     # Determines maximum (corresponding to Eg)
-    band_gap = find_peaks(spectrum.loc[:,"diff"], width = 10)
+    band_gap = find_peaks(spectrum.loc[:,"diff"],width = 2, height = 1.5*spectrum.loc[:,"diff"].mean())
     
     # Plots the energy against derivative
     plt.plot(spectrum.loc[:,"energy [eV]"], spectrum.loc[:,"diff"])
@@ -79,7 +79,7 @@ def calc_dasf(m) :
     plt.tick_params(axis = "y", length = 0)
     
     # Saves graphs and files
-    spectrum.to_csv(os.path.join("results",str(file)+"_calc.csv"), sep = "\t")
+    spectrum.to_csv(os.path.join("results",str(file)+"_calc.txt"), sep = "\t")
     plt.savefig(os.path.join("results", str(file)+"_DASF.png"), bbox_inches='tight', dpi=300)
     plt.clf()
     
@@ -102,7 +102,7 @@ for file in files :
     df_bg_all = df_bg_all.append(df_bg_local, ignore_index = True)
 
 # Saves the band-gaps of each data file in a file    
-df_bg_all.to_csv(os.path.join("results","band-gaps.csv"), sep = "\t")
+df_bg_all.to_csv(os.path.join("results","band-gaps.txt"), sep = "\t")
    
     
 
