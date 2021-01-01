@@ -6,10 +6,9 @@ This script calculates the band-gap of a material from its absorption spectrum d
 
 Generates the absorption spectrum for all `.csv` and `.txt` files (data-files) within the directory. Additionaly, the data is processed according to the DASF method and plotted. Furthermore, a `.csv` -file of the calculations is generated as well as a file that contains the band-gap for all data files within the directory.
 
-## Prerequisites 
-### Execution of the script
+## Execution of the script
 
-The file `test-DASF.py` should be in the directory of the files to be used on. You should have Python installed as well as the packages pandas, matplotlib, scipy and os. If you do not work with code frequently, you have the option to additionaly download the `DASF.batch` -file into the same directory. You can then execute the code by simply clicking on the `DASF.batch` file. The execution will then take place in your terminal (You still need to have installed python and the packages).
+The file `test-DASF.py` should be in the directory of the files to be used on. You should have Python installed as well as the packages pandas, matplotlib, scipy and os. If you do not work with code frequently, you have the option to additionaly download the `DASF.batch` -file into the same directory. You can then execute the code by simply clicking on the `DASF.batch` file. The execution will take place in your terminal (You still need to have installed python and the packages).
 
 #### How to run the script - step by step
 
@@ -25,10 +24,19 @@ The file `test-DASF.py` should be in the directory of the files to be used on. Y
 
 If you downloaded and installed python you can easily install the packages in your terminal by executing
 ```
-pip install 
+pip install matplotlib
+```
+```
+pip install pandas
+```
+```
+pip install numpy
+```
+```
+pip install scipy
 ```
 
-### Input data
+## Input data
 
 You can name the data files as you like. They should be in `.csv` or a `.txt` format. In the first column should be the wavlength and in the second the absorption seperated by a tabulator. The first row should contain the header (column names can be chosen by you). This format is depicted here:
 
